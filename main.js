@@ -17,16 +17,22 @@ renderer.xr.enabled = true // important
 document.body.append(renderer.domElement)
 
 
-const material = new THREE.MeshNormalMaterial({
-  wireframe:true
+const normalMaterial = new THREE.MeshNormalMaterial({
+  // wireframe:true
 })
 const geometry = new THREE.SphereGeometry(1,100,100)
-const mesh = new THREE.Mesh(geometry,material)
+const mesh = new THREE.Mesh(geometry,normalMaterial)
 
-scene.add(mesh)
+const box = new THREE.BoxGeometry(30,30,30)
+const basicMaterial = new THREE.MeshBasicMaterial({color: 'lightblue', side: THREE.DoubleSide})
 
-const light = new THREE.AmbientLight()
+const skyBox = new THREE.Mesh(box,basicMaterial)
 
+mesh.position.set(0,1,-3)
+
+scene.add(mesh,skyBox)
+
+const light = new THREE.PointLight('white',100,10)
 scene.add(light)
 
 renderer.setAnimationLoop(() => {
